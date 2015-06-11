@@ -4,12 +4,15 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import vo.AccountVO;
 
 import com.avaje.ebean.Model;
 
@@ -36,6 +39,21 @@ public class Account extends Model {
 	
 	@Column(name="is_active")
 	private boolean isActive;
+	
+	
+	
+	public Account(long glydelCrn, Integer balance, Date lastTrxnDate,
+			boolean isActive) {
+		super();
+		this.glydelCrn = glydelCrn;
+		this.balance = balance;
+		this.lastTrxnDate = lastTrxnDate;
+		this.isActive = isActive;
+	}
+
+	@SuppressWarnings("deprecation")
+	private static Finder<Long, Account> find 
+		= new Finder<Long, Account>(Long.class, Account.class);
 
 	public long getAccNumber() {
 		return accNumber;
@@ -77,5 +95,31 @@ public class Account extends Model {
 		this.isActive = isActive;
 	}
 	
+	public static Account find(long accNumber) {
+		return find.byId(accNumber);
+	}
 	
+	public static List<Account> findAll() {
+		return find.where().eq("isActive", Boolean.TRUE).findList();
+	}
+	
+	public AccountVO getVO() {
+		AccountVO vo = new AccountVO();
+		vo.accNumber = this.getAccNumber();
+		vo.balance = this.getBalance();
+		vo.glydelCrn = this.getGlydelCrn();
+		vo.isActive =this.isActive();
+		vo.lastTrxnDate = this.getLastTrxnDate();
+		return vo;
+	}
+	
+	public static Account debitAccount(Account account, Integer amount) {
+		account.setBalance(account.getBalance() - amount);
+		return account;
+	}
+	
+	public static Account creditAccount(Account account, Integer amount) {
+		account.setBalance(account.getBalance() + amount);
+		return account;
+	}
 }

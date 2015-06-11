@@ -12,7 +12,8 @@ libraryDependencies ++= Seq(
   javaWs,
   evolutions,
   jdbc,
-  "mysql" % "mysql-connector-java" % "5.1.34"
+  "mysql" % "mysql-connector-java" % "5.1.34",
+  "net.sf.flexjson" % "flexjson" % "3.2"
 )
 
 // Play provides two styles of routers, one expects its actions to be injected, the

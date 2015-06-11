@@ -4,6 +4,7 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,4 +38,68 @@ public class Statement extends Model {
 	
 	@Column(name="trxn_date")
 	private Date date;
+	
+	
+	
+	public Statement(Account account, String trxnType, Integer amount, Date date) {
+		super();
+		this.account = account;
+		this.trxnType = trxnType;
+		this.amount = amount;
+		this.date = date;
+	}
+
+	@SuppressWarnings("deprecation")
+	private static Finder<Long, Statement> find 
+		= new Finder<Long, Statement>(Long.class, Statement.class);
+
+	public long getTrxnId() {
+		return trxnId;
+	}
+
+	public void setTrxnId(long trxnId) {
+		this.trxnId = trxnId;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public String getTrxnType() {
+		return trxnType;
+	}
+
+	public void setTrxnType(String trxnType) {
+		this.trxnType = trxnType;
+	}
+
+	public Integer getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
+	public static Statement findEntry(long trxnId) {
+		return find.byId(trxnId);
+	}
+	
+	public static List<Statement> findFiltered(String fromDate, 
+			String toDate, long accNumber) {
+		return find.where().eq("account.accNumber", accNumber)
+				.between("date", fromDate, toDate).findList();
+	}
 }
