@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import vo.StatementVO;
+
 import com.avaje.ebean.Model;
 /**
  * @author adhiraima
@@ -101,5 +103,20 @@ public class Statement extends Model {
 			String toDate, long accNumber) {
 		return find.where().eq("account.accNumber", accNumber)
 				.between("date", fromDate, toDate).findList();
+	}
+	
+	public static List<Statement> findFiltered(long accNumber) {
+		return find.where().eq("account.accNumber", accNumber)
+				.findList();
+	}
+	
+	public StatementVO getVO() {
+		StatementVO vo = new StatementVO();
+		vo.trxnId = this.getTrxnId();
+		vo.account = this.getAccount();
+		vo.amount = this.getAmount();
+		vo.date = this.getDate();
+		vo.trxnType = this.getTrxnType();
+		return vo;
 	}
 }

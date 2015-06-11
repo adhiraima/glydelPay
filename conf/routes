@@ -4,8 +4,28 @@
 
 #Account Actions
 
+#individual account
+GET		/account/:accNumber			 				controllers.AccountController.getAccount(accNumber: Long)
+#list of accounts
+GET		/account									controllers.AccountController.listAccounts()
+#add account
+PUT		/account									controllers.AccountController.addAccount()
+#update account
+POST	/account									controllers.AccountController.updateAccount()
+#credit account
+POST	/account/debit/:accNumber/:amount			controllers.AccountController.debit(accNumber: Long, amount: Integer)
+#debit account
+POST	/account/credit/:accNumber/:amount			controllers.AccountController.credit(accNumber: Long, amount: Integer)
+#deactivate account
+DELETE  /account/:accNumber							controllers.AccountController.deleteAccount(accNumber: Long)
 
 #Statement Actions
+#get for account
+GET		/statements/:accNumber						controllers.StatementController.getStatement(accNumber: Long)
+#Get for account between dates
+GET		/statements/:accNumber/:fromDate/:toDate	controllers.StatementController.getTruncatedStatement(accNumber: Long, fromDate: String, toDate: String)
+#add statement entry
+PUT		/statements									controllers.StatementController.addEntry()
 
 # Home page
 GET     /                    controllers.Assets.versioned(path="/public", file="index.html")

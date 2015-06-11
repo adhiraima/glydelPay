@@ -25,7 +25,7 @@ import flexjson.JSONSerializer;
 public class AccountController extends Controller {
 	
 	
-	public static Result get(long accNumber) {
+	public static Result getAccount(Long accNumber) {
 		ObjectNode jsonResult = Json.newObject();
 		Account account = Account.find(accNumber);
 		if (null != account ) {
@@ -38,7 +38,7 @@ public class AccountController extends Controller {
 		}
 	}
 	
-	public static Result list() {
+	public static Result listAccounts() {
 		List<Account> accounts = Account.findAll();
 		List<AccountVO> vos = new ArrayList<AccountVO>();
 		for (Account account : accounts)
@@ -47,7 +47,7 @@ public class AccountController extends Controller {
 		return ok(serializer.serialize(vos));
 	}
 	
-	public static Result add() {
+	public static Result addAccount() {
 		ObjectNode jsonResult = Json.newObject();
         Account account = new JSONDeserializer<Account>().deserialize(
                         request().body().asJson().toString(), Account.class);
@@ -68,7 +68,7 @@ public class AccountController extends Controller {
 		
 	}
 	
-	public static Result update() {
+	public static Result updateAccount() {
 		ObjectNode jsonResult = Json.newObject();
         Account account = new JSONDeserializer<Account>().deserialize(
                         request().body().asJson().toString(), Account.class);
@@ -88,7 +88,7 @@ public class AccountController extends Controller {
         }
 	}
 	
-	public static Result getBalance(long accNumber) {
+	public static Result getBalance(Long accNumber) {
 		ObjectNode jsonResult = Json.newObject();
 		Account account = Account.find(accNumber);
 		if (null != account ) {
@@ -100,7 +100,7 @@ public class AccountController extends Controller {
 		}
 	}
 	
-	public static Result credit(long accNumber, int amount) {
+	public static Result credit(Long accNumber, Integer amount) {
 		ObjectNode jsonResult = Json.newObject();
 		Account account = Account.find(accNumber);
 		if (null != account ) {
@@ -114,7 +114,7 @@ public class AccountController extends Controller {
 		}
 	}
 	
-	public static Result debit(long accNumber, int amount) {
+	public static Result debit(Long accNumber, Integer amount) {
 		ObjectNode jsonResult = Json.newObject();
 		Account account = Account.find(accNumber);
 		if (null != account ) {
@@ -128,7 +128,7 @@ public class AccountController extends Controller {
 		}
 	}
 	
-	public static Result delete(long accNumber) {
+	public static Result deleteAccount(Long accNumber) {
 		ObjectNode jsonResult = Json.newObject();
 		Account account = Account.find(accNumber);
 		if (null != account ) {
