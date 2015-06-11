@@ -5,6 +5,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 import models.Account;
 import play.libs.Json;
@@ -17,6 +18,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import flexjson.JSONDeserializer;
 import flexjson.JSONSerializer;
 
+import models.Statement;
 /**
  * @author adhiraima
  *
@@ -47,11 +49,13 @@ public class AccountController extends Controller {
 	}
 	
 	public static Result addAccount() {
+		System.out.println("coming to add account");
 		ObjectNode jsonResult = Json.newObject();
         Account account = new JSONDeserializer<Account>().deserialize(
                         request().body().asJson().toString(), Account.class);
         if (null != account) {
         	try {
+        		account.setLastTrxnDate(new Date());
         		account.setActive(Boolean.TRUE);
 	        	Ebean.save(account);
 	        	jsonResult.put("successMessage", "Account created successfully!!");
@@ -74,6 +78,7 @@ public class AccountController extends Controller {
         Account existing = Account.find(account.getAccNumber());
         if (null != existing && existing.getAccNumber() == account.getAccNumber() ) {
         	try {
+        		account.setLastTrxnDate(new Date());
 	        	Ebean.update(account);
 	        	jsonResult.put("successMessage", "Account updated successfully!!");
 	        	return ok(jsonResult);
@@ -105,6 +110,12 @@ public class AccountController extends Controller {
 		if (null != account ) {
 			account = Account.creditAccount(account, amount);
 			Ebean.update(account);
+			Statement statement = new Statement();
+			statement.setAccount(account);
+			statement.setDate(new Date());
+			statement.setTrxnType("CREDIT");
+			statement.setAmount(amount);
+			Ebean.save(statement);
 			jsonResult.put("successMessage", "Account #"+accNumber+" is successfully credited with "+amount+" amount");
 			return ok(jsonResult);
 		} else {
@@ -119,6 +130,12 @@ public class AccountController extends Controller {
 		if (null != account ) {
 			account = Account.debitAccount(account, amount);
 			Ebean.update(account);
+			Statement statement = new Statement();
+			statement.setAccount(account);
+			statement.setDate(new Date());
+			statement.setTrxnType("DEBIT");
+			statement.setAmount(amount);
+			Ebean.save(statement);
 			jsonResult.put("successMessage", "Account #"+accNumber+" is successfully debited by "+amount+" amount");
 			return ok(jsonResult);
 		} else {

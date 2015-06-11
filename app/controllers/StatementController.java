@@ -5,6 +5,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 import com.avaje.ebean.Ebean;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -49,6 +50,7 @@ public class StatementController extends Controller {
                         request().body().asJson().toString(), Statement.class);
         if (null != statement) {
         	try {
+        		statement.setDate(new Date());
 	        	Ebean.save(statement);
 	        	jsonResult.put("successMessage", "Statement entry created successfully!!");
 	        	return ok(jsonResult);

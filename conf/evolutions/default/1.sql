@@ -18,7 +18,6 @@ create table statement (
   trxn_type                 varchar(255),
   amount                    integer,
   trxn_date                 datetime(6),
-  constraint uq_statement_account_acc_number unique (account_acc_number),
   constraint pk_statement primary key (trxn_id))
 ;
 
