@@ -31,10 +31,23 @@ public class AccountController extends Controller {
 		Account account = Account.find(accNumber);
 		if (null != account ) {
 			AccountVO vo = account.getVO();
-			JSONSerializer serializer = new JSONSerializer().include("*").exclude("*.class");
+			JSONSerializer serializer = new JSONSerializer().include("*.values").exclude("*.class");
 			return ok(serializer.serialize(vo));
 		} else {
 			jsonResult.put("errorMessage", "Account with account #"+accNumber+" not found!!");
+			return notFound(jsonResult);
+		}
+	}
+
+	public static Result getAccountByCRN(Long glydelCrn) {
+		ObjectNode jsonResult = Json.newObject();
+		Account account = Account.findByCRN(glydelCrn);
+		if (null != account ) {
+			AccountVO vo = account.getVO();
+			JSONSerializer serializer = new JSONSerializer().include("*.values").exclude("*.class");
+			return ok(serializer.serialize(vo));
+		} else {
+			jsonResult.put("errorMessage", "Account with Glydel CRN #"+glydelCrn+" not found!!");
 			return notFound(jsonResult);
 		}
 	}

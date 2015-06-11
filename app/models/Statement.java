@@ -41,7 +41,9 @@ public class Statement extends Model {
 	@Column(name="trxn_date")
 	private Date date;
 	
-	
+	public Statement() {
+		super();
+	}
 	
 	public Statement(Account account, String trxnType, Integer amount, Date date) {
 		super();

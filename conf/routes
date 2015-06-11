@@ -7,6 +7,9 @@
 #individual account
 GET		/account/:accNumber			 				controllers.AccountController.getAccount(accNumber: Long)
 
+#individual account by CRN
+GET		/account/crn/:glydelCrn			 			controllers.AccountController.getAccountByCRN(glydelCrn: Long)
+
 #list of accounts
 GET		/account									controllers.AccountController.listAccounts()
 

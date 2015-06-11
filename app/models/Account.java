@@ -98,6 +98,10 @@ public class Account extends Model {
 	public static Account find(long accNumber) {
 		return find.byId(accNumber);
 	}
+
+	public static Account findByCRN(long glydelCrn) {
+		return find.where().eq("glydelCrn", glydelCrn).findUnique();
+	}
 	
 	public static List<Account> findAll() {
 		return find.where().eq("isActive", Boolean.TRUE).findList();

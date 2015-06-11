@@ -7,7 +7,8 @@
 		"d11490d0-52e5-643d-d704-974bbf61eb4d",
 		"24ad1211-7365-385e-0c23-d88c577e47b7",
 		"3f2c54de-3cc5-11ff-864a-f4bf8903f49f",
-		"54bd27f4-fa28-782d-3628-56409e660b8e"
+		"54bd27f4-fa28-782d-3628-56409e660b8e",
+		"742549d6-5de8-de00-7dd5-8c99625c9236"
 	],
 	"folders": [
 		{
@@ -115,6 +116,41 @@
 			"description": "",
 			"descriptionFormat": "html",
 			"time": 1434022433408,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionOwner": 0,
+			"synced": false
+		},
+		{
+			"id": "742549d6-5de8-de00-7dd5-8c99625c9236",
+			"headers": "",
+			"url": "http://localhost:9090/account/crn/900001",
+			"pathVariables": {},
+			"preRequestScript": "",
+			"method": "GET",
+			"collectionId": "defbafd2-3594-adf7-58df-59ae3537004e",
+			"data": [
+				{
+					"key": "glydelCrn",
+					"value": "900001",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "balance",
+					"value": "200",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"name": "account by CRN",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1434035276784,
 			"version": 2,
 			"responses": [],
 			"tests": "",
