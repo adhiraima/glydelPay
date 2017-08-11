@@ -62,6 +62,5 @@ public class StatementController extends Controller {
         	jsonResult.put("errorMessage", "The request is not in the expected format!!");
         	return badRequest(jsonResult);
         }
-	}
-
+    }
 }
